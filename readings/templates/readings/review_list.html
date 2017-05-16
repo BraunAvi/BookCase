@@ -3,7 +3,11 @@
 
 {% block title%}
     <h1><a href="">Our reading list</a>
-        <a href="{% url 'readings:review_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a></h1>
+        {% if user.is_authenticated %}
+            <a href="{% url 'readings:review_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+        {% endif %}
+    </h1>
+
 {% endblock %}
 
 
