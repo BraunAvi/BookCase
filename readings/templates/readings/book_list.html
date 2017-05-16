@@ -1,0 +1,32 @@
+{% extends 'readings/base.html' %}
+
+
+{% block title%}
+    <h1><a href="">Our reading list</a>
+        <a href="{% url 'readings:review_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a></h1>
+{% endblock %}
+
+
+{% block sub_title %}
+    <h2 class="sub-title">Latest readings </h2>
+{% endblock %}
+
+{% if reviews %}
+    {% block content %}
+        {% for review in reviews %}
+            <div class="review">
+                <h3><a href="{% url 'readings:review_detail' review.id %}">{{ review.book.name }}</a></h3>
+                <h4>wrriten by: <a href="{% url 'readings:review_detail' review.id %}">{{ review.book.author }}</a></h4>
+                <h4>illustrated by: <a href="{% url 'readings:review_detail' review.id %}">{{ review.book.illustrator }}</a></h4>
+
+                <h4>read by: <b> {{ review.reviewed_by.username }} </b> who: {{ review.rating }} </h4>
+                <p>{{ review.body|linebreaksbr }}</p>
+                <div class="date">
+                    <p>published on: {{review.published_date }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    {% endblock %}
+{% else %}
+    <p>No reviews are available.</p>
+{% endif %}

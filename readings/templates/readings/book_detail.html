@@ -1,0 +1,25 @@
+{% extends 'readings/base.html' %}
+
+
+{% block title%}
+    <h1><a href="">{{ book.name }}</a></h1>
+{% endblock %}
+
+{% block sub_title %}
+    <h2 class="sub-title">written by: {{book.author}} </h2>
+    <h2 class="sub-title">illustrated by: {{book.illustrator}} </h2>
+
+{% endblock %}
+
+
+<!--{% block content %}-->
+    <!--<div class="review">-->
+        <!--{% if book.published_date %}-->
+            <!--<div class="date">-->
+                <!--{{ book.published_date }}-->
+            <!--</div>-->
+        <!--{% endif %}-->
+        <!--<h1>{{ book.name }}</h1>-->
+        <!--<p>{{ review.body|linebreaksbr }}</p>-->
+    <!--</div>-->
+<!--{% endblock %}-->

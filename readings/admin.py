@@ -9,8 +9,8 @@ from .models import Reader, Book, Review
 
 class ReviewAdmin(admin.ModelAdmin):
     model = Review
-    list_display = ('book', 'reviewed_by', 'rating', 'pub_date')
-    list_filter = ['pub_date', 'reviewed_by']
+    list_display = ('book', 'reviewed_by', 'rating', 'published_date')
+    list_filter = ['published_date', 'reviewed_by']
     search_fields = ['book__name','reviewed_by__username']
 
 class BookAdmin(admin.ModelAdmin):

@@ -1,0 +1,23 @@
+{% extends 'readings/base.html' %}
+
+
+{% block title%}
+    <h1><a href="">{{ review.book.name }}</a></h1>
+{% endblock %}
+
+{% block sub_title %}
+    <h2 class="sub-title">read by: {{review.reviewed_by.username}} </h2>
+{% endblock %}
+
+
+{% block content %}
+    <div class="review">
+        {% if review.published_date %}
+            <div class="date">
+                {{ review.published_date }}
+            </div>
+        {% endif %}
+        <h1>{{ review.book.name }}</h1>
+        <p>{{ review.body|linebreaksbr }}</p>
+    </div>
+{% endblock %}

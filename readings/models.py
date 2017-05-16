@@ -5,6 +5,9 @@ import datetime
 from django.db import models
 import numpy as np
 
+from django.utils import timezone
+
+
 class Reader(models.Model):
     GENDER_CHOICES=(
         ('M','male'),
@@ -33,7 +36,7 @@ class Book(models.Model):
 
     name = models.CharField(max_length=200)
     author = models.CharField(max_length=50)
-    illustrator = models.CharField(max_length=50)
+    illustrator = models.CharField(max_length=50,blank=True)
     publisher = models.CharField(max_length=50)
     # year_1st_published = models.CharField(max_length=50)
     year = models.IntegerField(default=datetime.datetime.now().year)
@@ -50,18 +53,27 @@ class Book(models.Model):
 
 class Review(models.Model):
     RATING_CHOICES = (
-        (1, '1'),
-        (2, '2'),
-        (3, '3'),
-        (4, '4'),
-        (5, '5'),
+        (1, 'did\'nt like it so much'),
+        (2, 'thought it was OK'),
+        (3, 'Loved it!'),
     )
+    # id = models.IntegerField(unique=True, db_index=True, blank=True, primary_key=True, null=False,auto_created=True)
+
     book = models.ForeignKey(Book)
     reviewed_by = models.ForeignKey(Reader)
-    pub_date = models.DateTimeField('date published')
-    Review = models.TextField()
+    published_date = models.DateTimeField('date published')
+    body = models.TextField()
+    quote = models.CharField(max_length=500, blank=True)
     rating = models.IntegerField(choices=RATING_CHOICES)
+    # rating_text = models.CharField(max_length=30,default=rating)
+
+
+    def publish(self):
+        self.published_date = timezone.now()
+        self.save()
+
 
     def __unicode__(self):
         return self.book.name + ' by '+self.reviewed_by.username
 
+    objects = models.Manager() # the default manager (used for queries for example)
