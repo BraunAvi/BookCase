@@ -13,14 +13,22 @@ h1, h2, h3, h4 {
     padding-left:30px
 }
 
-.page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
-    color: #fd0a55;
+.page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active .page-header a {
+    color: aqua;
     font-size: 36pt;
     text-decoration: none;
 }
 
-.sub-title {  
+.sub-header h2 {
+    color: black;
+    font-size: 30 pt;
+    text-decoration: none;
+    font-family: 'Libre Baskerville', cursive;
 
+}
+
+
+.sub-title {  
     background-color: #ffffff;
     font-family: "Times New Roman", Times, serif;
     font-size: 22pt;
@@ -65,4 +73,47 @@ h1, h2, h3, h4 {
 }
 
     
+.container {
+    position: relative;
+}
 
+.bottomleft {
+    position: absolute;
+    bottom: 8px;
+    left: 16px;
+    font-size: 36px;
+    color: #000000;
+}
+
+.bottomright {
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    font-size: 30px;
+    transform: translate(125%, 125%);
+    color: #000000;
+}
+
+.center {
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    transform: translate(-25%, -25%);
+    font-size: 136px;
+}
+
+
+.right {
+    position: absolute;
+    top: 25%;
+    left: 60%;
+    transform: translate(200%, 0%);
+    font-size: 36px;
+}
+
+
+img { 
+    width: 100%;
+    height: auto;
+    opacity: 0.8;
+}

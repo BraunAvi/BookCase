@@ -2,10 +2,9 @@
 
 
 {% block title%}
-    <h1><a href="">Our reading list</a>
-        {% if user.is_authenticated %}
-            <a href="{% url 'readings:review_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
-        {% endif %}
+    <h1>
+        <a> Our reading list</a>
+
     </h1>
 
 {% endblock %}
@@ -23,7 +22,8 @@
                 <h4>wrriten by: <a href="{% url 'readings:review_detail' review.id %}">{{ review.book.author }}</a></h4>
                 <h4>illustrated by: <a href="{% url 'readings:review_detail' review.id %}">{{ review.book.illustrator }}</a></h4>
 
-                <h4>read by: <b> {{ review.reviewed_by.username }} </b> who: {{ review.rating }} </h4>
+                <h4>read by: <b> {{ review.reviewed_by.username }} </b> who {{ review.text_rating }} </h4>
+
                 <p>{{ review.body|linebreaksbr }}</p>
                 <div class="date">
                     <p>published on: {{review.published_date }}</p>

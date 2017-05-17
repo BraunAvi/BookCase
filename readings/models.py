@@ -4,6 +4,7 @@ import datetime
 
 from django.db import models
 import numpy as np
+from django.core.validators import URLValidator
 
 from django.utils import timezone
 
@@ -16,7 +17,7 @@ class Reader(models.Model):
     )
 
     YEAR_CHOICES = []
-    for r in range(1900, (datetime.datetime.now().year + 1)):
+    for r in range(1890, (datetime.datetime.now().year + 1)):
         YEAR_CHOICES.append((r, r))
 
     username = models.CharField(max_length=100)
@@ -37,11 +38,10 @@ class Book(models.Model):
     name = models.CharField(max_length=200)
     author = models.CharField(max_length=50)
     illustrator = models.CharField(max_length=50,blank=True)
-    publisher = models.CharField(max_length=50)
-    # year_1st_published = models.CharField(max_length=50)
-    year = models.IntegerField(default=datetime.datetime.now().year)
-
-    number_of_pages = models.IntegerField()
+    publisher = models.CharField(max_length=50,blank=True)
+    year = models.IntegerField(default=datetime.datetime.now().year,blank=True)
+    wiki_page = models.CharField(max_length=100, blank=True,  validators=[URLValidator()])
+    number_of_pages = models.IntegerField(blank=True)
 
     def average_rating(self):
         all_ratings = map(lambda x: x.rating, self.review_set.all())

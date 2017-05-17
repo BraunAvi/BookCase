@@ -4,13 +4,24 @@ from django.utils import timezone
 from django.shortcuts import render, get_object_or_404
 from .models import Review, Book
 from .forms import ReviewForm, BookForm
-from django.shortcuts import redirect, HttpResponseRedirect
-from django.core.urlresolvers import reverse
+from django.shortcuts import redirect
+from django.template.defaulttags import register
+
 
 
 def review_list(request):
-    reviews = Review.objects.all()
+    # import pdb;
+    # pdb.set_trace()
+
     reviews = Review.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
+    reviews.text_rating=[]
+    text_rating={1: 'did\'nt like it so much',
+                 2: 'thought it was OK',
+                 3: 'Loved it!'}
+    for i in range (0,len(reviews)):
+        reviews[i].text_rating=text_rating[reviews[i].rating]
+        print reviews[i].reviewed_by.username,reviews[i].text_rating
+
     return render(request,
                   'readings/review_list.html',
                   {'reviews': reviews})
@@ -63,7 +74,3 @@ def review_edit(request, pk):
         form = ReviewForm(instance=review)
     return render(request, 'readings/review_edit.html', {'form': form})
 
-
-
-# def review_edit(request, pk):
-#     i=2

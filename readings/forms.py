@@ -12,7 +12,7 @@ class ReviewForm(forms.ModelForm):
 class BookForm(forms.ModelForm):
     class Meta:
         model = Book
-        fields = ('name','author','illustrator','publisher','year','number_of_pages')
+        fields = ('name','author','illustrator','publisher','year','number_of_pages','wiki_page')
 
 class CustomerForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
