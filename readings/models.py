@@ -1,13 +1,40 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-import datetime
-
+from django.contrib.auth.models import User
 from django.db import models
-import numpy as np
 from django.core.validators import URLValidator
-
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.utils import timezone
 
+import datetime
+import numpy as np
+
+class ReaderE(models.Model):
+    GENDER_CHOICES = (
+        ('M', 'male'),
+        ('F', 'female'),
+        ('O', 'not/specified')
+    )
+
+    YEAR_CHOICES = []
+    YEAR_CHOICES.append(('1000', '1000'))
+
+    for r in range(1890, (datetime.datetime.now().year + 1)):
+        YEAR_CHOICES.append((r, r))
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE,default='A',null=True)
+    gender = models.CharField(max_length=1,choices=GENDER_CHOICES)
+    year_of_birth = models.IntegerField(choices=YEAR_CHOICES, default=YEAR_CHOICES[0])
+
+    def __str__(self):  # __unicode__ for Python 2
+        return self.user.username
+
+    @receiver(post_save, sender=User)
+    def create_or_update_user_profile(sender, instance, created, **kwargs):
+        if created:
+            ReaderE.objects.create(user=instance)
+        instance.readere.save()
 
 class Reader(models.Model):
     GENDER_CHOICES=(
@@ -17,7 +44,7 @@ class Reader(models.Model):
     )
 
     YEAR_CHOICES = []
-    for r in range(1890, (datetime.datetime.now().year + 1)):
+    for r in range(1910, (datetime.datetime.now().year + 1)):
         YEAR_CHOICES.append((r, r))
 
     username = models.CharField(max_length=100)
@@ -31,10 +58,6 @@ class Reader(models.Model):
         return self.username
 
 class Book(models.Model):
-    # YEAR_CHOICES = []
-    # for r in range(1700, (datetime.datetime.now().year + 1)):
-    #     YEAR_CHOICES.append((r, r))
-
     name = models.CharField(max_length=200)
     author = models.CharField(max_length=50)
     illustrator = models.CharField(max_length=50,blank=True)
