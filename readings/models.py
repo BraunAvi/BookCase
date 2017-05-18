@@ -14,18 +14,18 @@ class ReaderE(models.Model):
     GENDER_CHOICES = (
         ('M', 'male'),
         ('F', 'female'),
-        ('O', 'not/specified')
+        ('O', 'Other /not specified')
     )
 
     YEAR_CHOICES = []
-    YEAR_CHOICES.append(('1000', '1000'))
+    YEAR_CHOICES.append((1000,'1000'))
 
     for r in range(1890, (datetime.datetime.now().year + 1)):
         YEAR_CHOICES.append((r, r))
 
     user = models.OneToOneField(User, on_delete=models.CASCADE,default='A',null=True)
-    gender = models.CharField(max_length=1,choices=GENDER_CHOICES)
-    year_of_birth = models.IntegerField(choices=YEAR_CHOICES, default=YEAR_CHOICES[0])
+    gender = models.CharField(max_length=1,choices=GENDER_CHOICES,default='O')
+    year_of_birth = models.IntegerField(choices=YEAR_CHOICES, default=1000)
 
     def __str__(self):  # __unicode__ for Python 2
         return self.user.username
