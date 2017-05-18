@@ -4,7 +4,7 @@ from django.contrib import admin
 from .models import Book, Review
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
-from readings.models import ReaderE
+from readings.models import Reader
 
 
 class ReviewAdmin(admin.ModelAdmin):
@@ -26,14 +26,14 @@ class BookAdmin(admin.ModelAdmin):
 #     search_fields = ['username']
 
 class ReadersAdminE(admin.ModelAdmin):
-    model = ReaderE
+    model = Reader
     list_display = ['gender',]
     list_filter = ['gender']
     search_fields = ['gender']
 
 
 class ReaderInline(admin.StackedInline):
-    model = ReaderE
+    model = Reader
     can_delete = False
     verbose_name_plural = 'Reader'
     fk_name = 'user'
@@ -41,14 +41,14 @@ class ReaderInline(admin.StackedInline):
 class CustomUserAdmin(BaseUserAdmin):
     inlines = (ReaderInline,)
     list_display = ('username', 'email', 'first_name', 'last_name', 'is_active','is_staff', 'get_gender','get_year')
-    list_select_related = ('readere', )
+    list_select_related = ('reader', )
 
     def get_gender(self, instance):
-        return instance.readere.gender
+        return instance.reader.gender
     get_gender.short_description = 'Gender'
 
     def get_year(self, instance):
-        return instance.readere.year_of_birth
+        return instance.reader.year_of_birth
     get_year.short_description = 'Y.O.B'
 
     def get_inline_instances(self, request, obj=None):

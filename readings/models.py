@@ -10,7 +10,7 @@ from django.utils import timezone
 import datetime
 import numpy as np
 
-class ReaderE(models.Model):
+class Reader(models.Model):
     GENDER_CHOICES = (
         ('M', 'male'),
         ('F', 'female'),
@@ -33,8 +33,8 @@ class ReaderE(models.Model):
     @receiver(post_save, sender=User)
     def create_or_update_user_profile(sender, instance, created, **kwargs):
         if created:
-            ReaderE.objects.create(user=instance)
-        instance.readere.save()
+            Reader.objects.create(user=instance)
+        instance.reader.save()
 
 # class Reader(models.Model):
 #     GENDER_CHOICES=(
