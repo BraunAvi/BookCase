@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.contrib import admin
-from .models import Reader, Book, Review,ReaderE
+from .models import Book, Review
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 from readings.models import ReaderE
@@ -19,11 +19,11 @@ class BookAdmin(admin.ModelAdmin):
     list_filter = ['name', 'author','year']
     search_fields = ['name','author']
 
-class ReadersAdmin(admin.ModelAdmin):
-    model = Reader
-    list_display = ('username', 'year_of_birth', 'gender')
-    list_filter = ['username', 'gender']
-    search_fields = ['username']
+# class ReadersAdmin(admin.ModelAdmin):
+#     model = Reader
+#     list_display = ('username', 'year_of_birth', 'gender')
+#     list_filter = ['username', 'gender']
+#     search_fields = ['username']
 
 class ReadersAdminE(admin.ModelAdmin):
     model = ReaderE
@@ -60,6 +60,6 @@ admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)
 
 admin.site.register(Book,BookAdmin)
-admin.site.register(Reader,ReadersAdmin)
+# admin.site.register(Reader,ReadersAdmin)
 admin.site.register(Review, ReviewAdmin)
 # admin.site.register(ReaderE,ReadersAdminE)

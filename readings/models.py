@@ -36,26 +36,26 @@ class ReaderE(models.Model):
             ReaderE.objects.create(user=instance)
         instance.readere.save()
 
-class Reader(models.Model):
-    GENDER_CHOICES=(
-        ('M','male'),
-        ('F','female'),
-        ('O','not/specified')
-    )
-
-    YEAR_CHOICES = []
-    for r in range(1910, (datetime.datetime.now().year + 1)):
-        YEAR_CHOICES.append((r, r))
-
-    username = models.CharField(max_length=100)
-    email = models.EmailField(max_length=100)
-    year_of_birth = models.IntegerField(choices=YEAR_CHOICES, default=datetime.datetime.now().year-10)
-    gender = models.CharField(max_length=1,choices=GENDER_CHOICES)
-    password = models.CharField(max_length=50)
-    join_date = models.DateTimeField('date joined')
-
-    def __unicode__(self):
-        return self.username
+# class Reader(models.Model):
+#     GENDER_CHOICES=(
+#         ('M','male'),
+#         ('F','female'),
+#         ('O','not/specified')
+#     )
+#
+#     YEAR_CHOICES = []
+#     for r in range(1910, (datetime.datetime.now().year + 1)):
+#         YEAR_CHOICES.append((r, r))
+#
+#     username = models.CharField(max_length=100)
+#     email = models.EmailField(max_length=100)
+#     year_of_birth = models.IntegerField(choices=YEAR_CHOICES, default=datetime.datetime.now().year-10)
+#     gender = models.CharField(max_length=1,choices=GENDER_CHOICES)
+#     password = models.CharField(max_length=50)
+#     join_date = models.DateTimeField('date joined')
+#
+#     def __unicode__(self):
+#         return self.username
 
 class Book(models.Model):
     name = models.CharField(max_length=200)
@@ -83,7 +83,7 @@ class Review(models.Model):
     # id = models.IntegerField(unique=True, db_index=True, blank=True, primary_key=True, null=False,auto_created=True)
 
     book = models.ForeignKey(Book)
-    reviewed_by = models.ForeignKey(Reader)
+    reviewed_by = models.ForeignKey(User)
     published_date = models.DateTimeField('date published')
     body = models.TextField()
     quote = models.CharField(max_length=500, blank=True)
