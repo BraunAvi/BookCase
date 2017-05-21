@@ -22,8 +22,9 @@ class Reader(models.Model):
 
     for r in range(1890, (datetime.datetime.now().year + 1)):
         YEAR_CHOICES.append((r, r))
+    # user_id=models.IntegerField(default=0)
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE,default='A',null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE,blank=True)
     gender = models.CharField(max_length=1,choices=GENDER_CHOICES,default='O')
     year_of_birth = models.IntegerField(choices=YEAR_CHOICES, default=1000)
 
@@ -63,7 +64,7 @@ class Book(models.Model):
     illustrator = models.CharField(max_length=50,blank=True)
     publisher = models.CharField(max_length=50,blank=True)
     year = models.IntegerField(default=datetime.datetime.now().year,blank=True)
-    wiki_page = models.CharField(max_length=100, blank=True,  validators=[URLValidator()])
+    wiki_page = models.CharField(max_length=200, blank=True,  validators=[URLValidator()])
     number_of_pages = models.IntegerField(blank=True)
 
     def average_rating(self):
@@ -81,15 +82,12 @@ class Review(models.Model):
         (3, 'Loved it!'),
     )
     # id = models.IntegerField(unique=True, db_index=True, blank=True, primary_key=True, null=False,auto_created=True)
-
     book = models.ForeignKey(Book)
     reviewed_by = models.ForeignKey(User)
-    published_date = models.DateTimeField('date published')
+    published_date = models.DateTimeField()
     body = models.TextField()
-    quote = models.CharField(max_length=500, blank=True)
+    quote = models.CharField(max_length=200,blank=True)
     rating = models.IntegerField(choices=RATING_CHOICES)
-    # rating_text = models.CharField(max_length=30,default=rating)
-
 
     def publish(self):
         self.published_date = timezone.now()
