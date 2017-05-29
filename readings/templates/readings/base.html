@@ -58,28 +58,13 @@
           <!--</form>-->
 
           <ul class="nav navbar-nav navbar-right">
-              <!--<li class="dropdown">-->
-                  <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>-->
-                  <!--<ul class="dropdown-menu">-->
-                      <!--<li><a href="#">Action</a></li>-->
-                      <!--<li><a href="#">Another action</a></li>-->
-                      <!--<li><a href="#">Something else here</a></li>-->
-                      <!--<li role="separator" class="divider"></li>-->
-                      <!--<li><a href="#">Separated link</a></li>-->
-                  <!--</ul>-->
-              <!--</li>-->
-              <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><b class="my_top_navbar">{{ request.user.username }}</b> <span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                      <li><a href="{% url 'logout' %}">log out</a></li>
-                      <li><a href="{% url 'login' %}">log in</a></li>
+              {% if user.is_authenticated %}
+              <li class="my_top_navbar"><a><b>{{request.user.username}}</b></a></li>
+              <li><a href="{% url 'logout' %}">log out</a></li>
 
-
-                  </ul>
-              </li>
-
-              <!--<li class="my_top_navbar"><b>{{ request.user.username }}</b></li>-->
-
+              {% else %}
+              <li class="my_top_navbar"><a href="{% url 'login' %}"><b>log in</b></a></li>
+              {% endif %}
           </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

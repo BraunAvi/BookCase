@@ -3,6 +3,7 @@ h1   {
     padding-left:30px
 }
 
+
 h1, h2, h3, h4 {
     font-family: 'Lobster', cursive;
 }
@@ -35,15 +36,6 @@ h1, h2, h3, h4 {
     padding: 0px 0px 0px 20px;
     margin-left: 0px;
     padding-left:30px
-}
-
-#sub_title h2, #sub_title h3, #sub_title a
- {
-    display: inline;
-    vertical-align: top;
-/*    font-family: 'Open Sans', sans-serif;*/
-    font-size: 18px;
-    line-height: 28px;
 }
 
 
@@ -130,16 +122,36 @@ img {
 }
 
 
-.my_top_navbar{
-    text-align: bottom  ;
+li.my_top_navbar b{
+    font-size: 23px;
     color: cornflowerblue;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    font-size: 22px;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 14px;
+    text-align: center  ;
+/*    padding-top: 15px;*/
+/*    line-height: 10px;*/
+
 }
 
-.navbar-nav > li > a {
-   line-height: 20px;
+
+
+/*
+
+li.my_top_navbar {
+    text-align: bottom  ;
+    color: red;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    line-height: 20px;
+}
+*/
+
+
+#sub_title h2, #sub_title h3, #sub_title a
+ {
+    display: inline;
+    vertical-align: top;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    line-height: 28px;
 }
