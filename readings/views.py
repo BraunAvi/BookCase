@@ -95,9 +95,9 @@ def log_out(request):
     logout(request)
     return redirect('readings:review_list')
 
-def log_in(request):
-    logout(request)
-    return redirect('readings:review_list')
+# def log_in(request):
+#     logout(request)
+#     return redirect('login')
 
 def auth_error_message(request,error_type=0, message='',logged_in=''):
     error_type_get=request.get_full_path().rsplit('/',2)[-2] # get the last digit if the url (error-type)
