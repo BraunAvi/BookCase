@@ -4,6 +4,10 @@ Done:
             had to create new database and to migrate everything there
             using POSTGRES server app
 
+NavBar:
+  Done: Home| new reading| new book|
+    search (readings, users, books, authors)  | add artitst | register/login
+
 Views:
     books_list
     book_details
@@ -11,12 +15,12 @@ Views:
 Create user registration form
 
 Permissions:
-    who can view (everybody?)
-    who can add (logged-in users)
-    who can delete or change reviews (only creator)
+    Done:
+        who can view (everybody?)
+        who can add (logged-in users)
+        who can delete or change reviews (only creator)
     who can delete book (only creator if the book is not is used by another review)
     who can edit book (all users)
-    or change reviews (only creator)
 
 
 Deployment:
@@ -32,3 +36,8 @@ Deployment:
     manual
     From selection
 
+
+Links to filtered lists:
+    By user
+    Bu author
+    By name of book

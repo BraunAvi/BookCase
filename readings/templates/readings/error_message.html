@@ -1,0 +1,18 @@
+{% extends 'readings/base.html' %}
+
+{% block title%}
+
+{% endblock %}
+
+
+{% block sub_title %}
+
+    <h2 class="error_message">
+        Hi  {{request.user.first_name}}, {{ message }}
+    </h2>
+
+    <h4>
+
+        (You're logged in as '{{ logged_in }}')
+    </h4>
+{% endblock %}

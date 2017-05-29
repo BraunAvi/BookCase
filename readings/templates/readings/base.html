@@ -3,9 +3,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href='http://fonts.googleapis.com/css?family=Libre+Baskerville' rel='stylesheet'  type='text/css'>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+
 
     <link rel="stylesheet" href="{% static 'css/readings.css' %}">
 
@@ -14,25 +20,74 @@
 </head>
 
 <body>
-
-
     <div class="page-header">
-            <div class="container">
-                <img src="{% static 'images/books_flat.jpg' %}" alt="My image" width="300" height="100" />
-                <h1>
-                <a href="{% url 'readings:review_list' %}"
-                   class="top-menu"><span class="glyphicon glyphicon-home"></span></a>
-                    {% if user.is_authenticated %}
-                         <a href="{% url 'readings:review_new' %}" class="top-menu"><span class="glyphicon glyphicon-pencil"></span></a>
-                         <a href="{% url 'readings:book_new' %}" class="top-menu"><span class="glyphicon glyphicon-book"></span></a>
-                        {% block title%}
-                        {% endblock %}
-                    {% endif %}
-                </h1>
-            </div>
-
-
+        <div class="container">
+            <img src="{% static 'images/books_flat.jpg' %}" alt="My image" width="300" height="100" />
+        </div>
     </div>
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+              <li><a href="{% url 'readings:review_list' %}"><span class="glyphicon glyphicon-home"></span> Readings </a></li>
+              <li><a href="{% url 'readings:review_new' %}"> <span class="glyphicon glyphicon-pencil"></span> Add a New Reading  </a></li>
+              <li><a href="{% url 'readings:book_new' %}" >  <span class="glyphicon glyphicon-book"></span> Add a New Book</a></li>
+              <!--<li><a href="{% url 'readings:book_new' %}" >  <span class="glyphicon glyphicon-men"></span> Add a New Artist</a></li>-->
+
+            <!--<li class="dropdown">-->
+              <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Add New Items <span class="caret"></span></a>-->
+              <!--<ul class="dropdown-menu">-->
+                <!--<li><a href="{% url 'readings:review_new' %}">Add new Reading </a></li>-->
+                <!--<li><a href="{% url 'readings:review_new' %}">Add new Reading </a></li>-->
+                <!--<li><a href="{% url 'readings:review_new' %}">Add new Reading </a></li>-->
+                <!--<li role="separator" class="divider"></li>-->
+                <!--<li><a href="{% url 'readings:review_new' %}">Add new Reading </a></li>-->
+                <!--<li role="separator" class="divider"></li>-->
+                <!--<li><a href="#">One more separated link</a></li>-->
+              <!--</ul>-->
+            <!--</li>-->
+          </ul>
+
+          <!--<form class="navbar-form navbar-left">-->
+            <!--<div class="form-group">-->
+              <!--<input type="text" class="form-control" placeholder="Search">-->
+            <!--</div>-->
+            <!--<button type="submit" class="btn btn-default">Submit</button>-->
+          <!--</form>-->
+
+          <ul class="nav navbar-nav navbar-right">
+              <!--<li class="dropdown">-->
+                  <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>-->
+                  <!--<ul class="dropdown-menu">-->
+                      <!--<li><a href="#">Action</a></li>-->
+                      <!--<li><a href="#">Another action</a></li>-->
+                      <!--<li><a href="#">Something else here</a></li>-->
+                      <!--<li role="separator" class="divider"></li>-->
+                      <!--<li><a href="#">Separated link</a></li>-->
+                  <!--</ul>-->
+              <!--</li>-->
+              <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><b class="my_top_navbar">{{ request.user.username }}</b> <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                      <li><a href="{% url 'readings:log_out' %}">log out</a></li>
+                      <!--<li><a href="/admin/login/?next=/admin/auth/user/">log in</a></li>-->
+
+
+                  </ul>
+              </li>
+
+              <!--<li class="my_top_navbar"><b>{{ request.user.username }}</b></li>-->
+
+          </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+
+    {% block title%}
+    {% endblock %}
 
     <div class="sub-header">
         {% block sub_title%}

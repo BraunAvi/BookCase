@@ -3,26 +3,38 @@
 
 {% block title%}
     <h1>
-        <a href="">{{ review.book.name }}</a>
-    </h1>
+        <!--<a href="">{{ review.book.name }}</a>-->
+        {{ review.book.name }}
+            <a class="btn btn-default" href="{% url 'readings:review_edit' pk=review.pk %}">
+        <span class="glyphicon glyphicon-pencil"></span></a>
+
     </h1>
 {% endblock %}
+
 
 {% block sub_title %}
-    <h2 class="sub-title">read by: {{review.reviewed_by.username}} </h2>
+<div id="sub_title" >
+    <h2 class="sub-title">read by: <i>{{review.reviewed_by.username}}</i> who </h2>
+    <h3>  {{ review.text_rating|linebreaksbr }} </h3>
+</div>
 {% endblock %}
-
 
 {% block content %}
     <div class="review">
         {% if review.published_date %}
             <div class="date">
-                {{ review.published_date }}
+                Submitted on {{ review.published_date }}
+            </div>
+            <div class="date">
+                Last updated on {{ review.updated_date }}
             </div>
         {% endif %}
-
-        <h1>{{ review.book.name }}</h1>
-        <a class="btn btn-default" href="{% url 'readings:review_edit' pk=review.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+        <!--<br>-->
+        <p>-------------------------</p>
+        <!--<h1>{{ review.book.name }}</h1>-->
         <p>{{ review.body|linebreaksbr }}</p>
+
+        <br>
+
     </div>
 {% endblock %}

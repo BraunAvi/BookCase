@@ -84,7 +84,10 @@ class Review(models.Model):
     # id = models.IntegerField(unique=True, db_index=True, blank=True, primary_key=True, null=False,auto_created=True)
     book = models.ForeignKey(Book)
     reviewed_by = models.ForeignKey(User)
-    published_date = models.DateTimeField()
+    published_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
+
+
     body = models.TextField()
     quote = models.CharField(max_length=200,blank=True)
     rating = models.IntegerField(choices=RATING_CHOICES)

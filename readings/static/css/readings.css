@@ -1,6 +1,7 @@
-h1   a {
-    color: #aaA505;
-    }
+h1   {
+    color: #000999;
+    padding-left:30px
+}
 
 h1, h2, h3, h4 {
     font-family: 'Lobster', cursive;
@@ -21,32 +22,41 @@ h1, h2, h3, h4 {
 
 .sub-header h2 {
     color: black;
-    font-size: 30 pt;
+    font-size: 25 pt;
     text-decoration: none;
     font-family: 'Libre Baskerville', cursive;
 
 }
 
-
 .sub-title {  
     background-color: #ffffff;
     font-family: "Times New Roman", Times, serif;
-    font-size: 22pt;
+    font-size: 18pt;
     padding: 0px 0px 0px 20px;
-    margin-left: 15px;
-
+    margin-left: 0px;
     padding-left:30px
 }
 
-.content {
-    margin-left: 40px;
-    padding-left: 35px;
+#sub_title h2, #sub_title h3, #sub_title a
+ {
+    display: inline;
+    vertical-align: top;
+/*    font-family: 'Open Sans', sans-serif;*/
+    font-size: 18px;
+    line-height: 28px;
+}
 
+
+.content {
+    padding: 0px 0px 0px 0px;
+    padding-left: 30px;
+    margin-left:    0px;
 }
 
 
 .date {
     color: #828282;
+    margin-left:10px;
 }
 
 .save {
@@ -62,6 +72,7 @@ h1, h2, h3, h4 {
     float: right;
     font-size: 26pt;
     margin-right: 30px;
+
 }
 
 .review {
@@ -116,4 +127,19 @@ img {
     width: 100%;
     height: auto;
     opacity: 0.8;
+}
+
+
+.my_top_navbar{
+    text-align: bottom  ;
+    color: cornflowerblue;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-size: 22px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+}
+
+.navbar-nav > li > a {
+   line-height: 20px;
 }
