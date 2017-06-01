@@ -1,0 +1,10 @@
+django==1.11.1
+appdirs==1.4.3
+django-extensions==1.7.9
+numpy==1.12.1
+psycopg2==2.7.1
+pyparsing==2.2.0
+pytz==2017.2
+setuptools==35.0.2
+six==1.10.0
+wsgiref==0.1.2
