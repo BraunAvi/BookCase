@@ -1,0 +1,270 @@
+django==1.11.1
+appdirs==1.4.3
+django-extensions==1.7.9
+numpy==1.12.1
+psycopg2==2.7.1
+pyparsing==2.2.0
+pytz==2017.2
+setuptools==35.0.2
+six==1.10.0
+wsgiref==0.1.2
+
+
+??? mkvirtualenv --python=/usr/bin/python2.7 bookcase-virtualenv
+??? PYTHONPATH= /usr/local/lib/python2.7/dist-packages/ python
+
+
+
+
+
+# setting the server:
+
+https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-16-04 
+https://www.linode.com/docs/getting-started 
+
+1. $ adduser avi
+2. $ usermod -aG sudo avi
+3. $ su - avi
+4. $ apt-get update && apt-get upgrade
+5. $ echo acton > /etc/hostname
+5.1 $ hostname -F /etc/hostname
+5.2 $ hostname  #(check)
+6. $ nano  /etc/hosts
+6.1 #add to the 'hosts' file:# 139.162.251.9 abraun.me acton
+7. $ dpkg-reconfigure tzdata
+
+
+############## secutrity: #############
+8. in local machine : $ ssh-keygen
+Your public key has been saved in /Users/avibraun/.ssh/id_rsa_linode.pub.
+The key fingerprint is:
+SHA256:01UxxtxJHEsK/Ky5zkBxqtaeJC0tdjtlcH/feVFe9dY avibraun@Avis-MacBook-Pro.local
+9. $ mkdir -p ~/.ssh && sudo chmod -R 700 ~/.ssh/
+10. from local: $ scp ~/.ssh/id_rsa.pub avi@139.162.251.9:~/.ssh/authorized_keys
+11. $ sudo chmod 700 -R ~/.ssh && chmod 600 ~/.ssh/authorized_keys
+https://www.linode.com/docs/security/using-fail2ban-for-security
+12. $ apt-get install fail2ban
+13 $ ufw allow ssh
+13.1 sudo ufw allow 8000 # (for the web server)
+13.1 $ ufw enable
+alternative: $ sudo ufw app list, $ sudo ufw allow OpenSSH, $ sudo ufw status
+
+
+###############  WEB APLICATION SERVER ##########
+???  https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-16-04 
+
+1. $ sudo apt-get install python-pip python-dev libpq-dev postgresql postgresql-contrib nginx
+# 1.alt $ sudo apt-get install build-essential nginx python-dev python-pip 
+2. $ sudo -H pip install --upgrade pip
+
+#### Virtual env  ############################
+{ XXXXXXXXXXXXXXXX
+7. $ source env_abraun/bin/activate
+8. $ pip install django  psycopg2
+8.1  pip install django_extensions, numpy
+9. $ sudo pip install uwsgi gunicorn
+XXXXXXXXXXXXXXX}
+
+
+ #### better working alternative for virtual env: 
+https://www.digitalocean.com/community/tutorials/how-to-serve-django-applications-with-uwsgi-and-nginx-on-ubuntu-14-04
+
+echo "export WORKON_HOME=~/Env" >> ~/.bashrc
+echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc
+source ~/.bashrc
+mkvirtualenv env_bookcase
+
+pip install -r BookCase/requirements.txt
+sudo pip install uwsgi gunicorn
+
+### GIT #####
+https://www.linode.com/docs/development/version-control/how-to-install-git-source-control-on-mac-and-windows/
+1. $ sudo apt-get install git
+2. $ git config --global user.name braunavi
+3. $ git config --global user.email avibraun@zoho.com
+4. $ git config --global core.editor nano
+
+###5. $ sudo git init abraun.git # (from project directory)
+5. $ sudo git init # (from project directory)
+6. $ sudo git clone https://github.com/BraunAvi/BookCase.git
+
+7. $ sudo git remote add bookcase https://github.com/BraunAvi/BookCase.git
+##8. on local $ git remote set-url origin git@139.162.251.9:abraun.git # for server push/pull
+## 9. onlocal $ git remote add bookcase_git https://github.com/BraunAvi/BookCase.git # for github push/pull
+
+#### DB: #####
+1. $ sudo -u postgres psql 
+2. postgres=#   CREATE DATABASE bookcase_db
+3. postgres=#   CREATE USER avibraun WITH PASSWORD 'avibraun';
+4.              ALTER ROLE avibraun SET client_encoding TO 'utf8';
+5.              ALTER ROLE avibraun SET default_transaction_isolation TO 'read committed';
+6.              ALTER ROLE avibraun SET timezone TO 'UTC'; 
+7.              GRANT ALL PRIVILEGES ON DATABASE bookcase_db TO avibraun;
+
+
+#### setting.py ######
+ALLOWED_HOSTS = ['abraun.me','139.162.251.9']
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'bookcase_db',
+        'USER': 'avibraun',
+        'PASSWORD': 'avibraun',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+### django touches
+
+1. $ python manage.py makemigrations
+2. $ python manage.py migrate
+3. $ python manage.py createsuperuser
+4. $ sudo python manage.py collectstatic
+
+
+5. $    gunicorn --bind 0.0.0.0:8000 bookcase.wsgi
+
+
+######################### Configure uWSGI ############
+https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-16-04 
+
+sudo nano /etc/systemd/system/gunicorn.service
+
+
+[Unit]
+Description=gunicorn daemon
+After=network.target
+
+[Service]
+User=avi
+Group=www-data
+WorkingDirectory=/home/avi/bookcase/
+ExecStart=/home/avi/Env/env_bookcase/bin/gunicorn --access-logfile - --workers 3 --bind unix:/home/avi/bookcase/bookcase.sock bookcase.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+
+$ sudo systemctl start gunicorn
+$ sudo systemctl enable gunicorn
+$ sudo systemctl status gunicorn
+
+! if you cant see the .sock file kill all gunicorn proccesses: ps auxf | grep gunicorn)
+----- I updated the file up to here for the rest of the procedure follow the link above-------
+
+    
+
+1. $ sudo mkdir -p /etc/uwsgi/sites
+2. $ sudo nano /etc/uwsgi/sites/bookcase.ini
+
+[uwsgi]
+project = bookcase
+base = /home/avi/
+chdir = %(base)/%(project)
+home = %(base)/Env/env_bookcase
+module = %(project).wsgi:application
+
+master = true
+processes = 5
+
+socket = %(base)/%(project)/%(project).sock
+
+chmod-socket = 664
+vacuum = true
+
+
+
+
+3 . $ sudo nano /etc/init/uwsgi.conf
+
+description "uWSGI"
+start on runlevel [2345]
+stop on runlevel [06]
+respawn
+
+env UWSGI=/usr/local/bin/uwsgi
+env LOGTO=/var/log/uwsgi.log
+
+exec $UWSGI --master --emperor /etc/uwsgi/sites --die-on-term --uid django --gid www-data --logto $LOGTO
+
+######## another try: 
+1. $ sudo nano /etc/systemd/system/gunicorn.service 
+
+[Unit]
+Description=gunicorn daemon
+After=network.target
+
+[Service]
+User=avi
+Group=www-data
+WorkingDirectory=/home/avi/abraun
+ExecStart=/home/avi/abraun/env_abraun/bin/gunicorn --access-logfile - --workers 3 --bind unix:/home/avi/abraun/bookcase.sock bookcase.wsgi:application
+
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+2. sudo nano /etc/init/gunicorn.conf
+description "Gunicorn application server handling myproject"
+
+start on runlevel [2345]
+stop on runlevel [!2345]
+
+respawn
+setuid avi
+setgid www-data
+chdir /home/avi/abraun
+
+exec env_abraun/bin/gunicorn --workers 3 --bind unix:/home/avi/abraun/bookcase.sock bookcase.wsgi:application
+
+
+2. $ sudo systemctl start gunicorn
+3. $ sudo systemctl enable gunicorn
+
+
+
+##### SSL certifivcation  #####
+https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-16-04
+https://letsencrypt.org
+
+
+# setting the server for WEB hosting:
+https://www.linode.com/docs/web-servers/nginx/deploy-django-applications-using-uwsgi-and-nginx-on-ubuntu-14-04
+https://www.linode.com/docs/websites/hosting-a-website/#sph_adding-dns-records
+
+
+
+
+
+
+Trouble shooting: 
+> if ssh key is lost: edit ~/.ssh/known_hosts and delete line X, as the message pointed
+> run program at BG:
+https://www.maketecheasier.com/run-bash-commands-background-linux/ 
+> pip doesn't install at  virtual env: 
+https://www.dabapps.com/blog/introduction-to-pip-and-virtualenv-python/?utm_source=feedly
+use sudo env/bin/pip install XXXX --ignore-installed
+
+
+
+
+
+[Unit]
+Description=gunicorn daemon
+After=network.target
+
+[Service]
+User=avi
+Group=www-data
+WorkingDirectory=/home/avi/firstsite
+ExecStart=/home/avi/Env/env_bookcase/bin/gunicorn --access-logfile - --workers 3 --bind unix:/home/avi/firstsite/firstsite.sock firstsite.wsgi:application
+
+
+
+http://michal.karzynski.pl/blog/2013/10/29/serving-multiple-django-applications-with-nginx-gunicorn-supervisor/
