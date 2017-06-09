@@ -4,6 +4,12 @@ Done:
             had to create new database and to migrate everything there
             using POSTGRES server app
 
+    Deployment:
+        Server
+        SSL
+        GIT
+        Online!
+
 NavBar:
   Done: Home| new reading| new book| login/logout
     search (readings, users, books, authors)  | add artitst
@@ -22,11 +28,6 @@ Permissions:
       who can delete book (only creator if the book is not is used by another review)
         who can edit book (all users)
 
-
-Deployment:
-    Server
-    Domain
-    Online!
 
 
  Models:

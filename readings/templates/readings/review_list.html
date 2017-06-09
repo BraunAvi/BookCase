@@ -20,7 +20,7 @@
 
                 <h4>read by: <b> {{ review.reviewed_by.username }} </b> who {{ review.text_rating }} </h4>
 
-                <p>{{ review.body|linebreaksbr }}</p>
+                <p>{{ review.body|linebreaksbr|truncatechars:300 }}</p>
                 <div class="date">
                     <p>published on: {{review.published_date }}</p>
                 </div>
