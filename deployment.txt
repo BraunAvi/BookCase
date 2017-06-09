@@ -61,17 +61,13 @@ https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubunt
 # 1.alt $ sudo apt-get install build-essential nginx python-dev python-pip 
 2. $ sudo -H pip install --upgrade pip
 
-#### Virtual env  #####
-3. $ sudo -H pip install virtualenv
-3.alt $ sudo pip install virtualenv virtualenvwrapper 
+#### Virtual env  ############################
 
-4. $ sudo mkdir ~/abraun
-5. $ cd ~/abraun
-6. $ sudo virtualenv env_abraun
 7. $ source env_abraun/bin/activate
-8. $ pip install django gunicorn psycopg2
+8. $ pip install django  psycopg2
 8.1  pip install django_extensions, numpy
-9. $ sudo pip install uwsgi
+9. $ sudo pip install uwsgi gunicorn
+
 
 
  #### better working alternative: 
@@ -82,7 +78,8 @@ echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc
 source ~/.bashrc
 mkvirtualenv env_bookcase
 
-
+pip install -r BookCase/requirements.txt
+sudo pip install uwsgi gunicorn
 ### GIT #####
 https://www.linode.com/docs/development/version-control/how-to-install-git-source-control-on-mac-and-windows/
 1. $ sudo apt-get install git
@@ -131,7 +128,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 3. $ python manage.py createsuperuser
 4. $ sudo python manage.py collectstatic
 
-5. $ gunicorn --bind 0.0.0.0:8000 bookcase.wsgi
+5. $    gunicorn --bind 0.0.0.0:8000 bookcase.wsgi
 
 ######################### Configure uWSGI
 1. $ sudo mkdir -p /etc/uwsgi/sites
@@ -239,3 +236,7 @@ User=avi
 Group=www-data
 WorkingDirectory=/home/avi/firstsite
 ExecStart=/home/avi/Env/env_bookcase/bin/gunicorn --access-logfile - --workers 3 --bind unix:/home/avi/firstsite/firstsite.sock firstsite.wsgi:application
+
+
+
+http://michal.karzynski.pl/blog/2013/10/29/serving-multiple-django-applications-with-nginx-gunicorn-supervisor/

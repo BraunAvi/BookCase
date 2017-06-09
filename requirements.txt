@@ -8,3 +8,4 @@ pytz==2017.2
 setuptools==35.0.2
 six==1.10.0
 wsgiref==0.1.2
+gunicorn
