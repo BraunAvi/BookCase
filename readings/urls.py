@@ -5,7 +5,10 @@ urlpatterns = [
     # ex: /
     url(r'^authentication_error/(?P<error_type>\d)/$', views.auth_error_message, name='auth_error_message'),
 
-    url(r'^$', views.review_list, name='review_list'),
+    url(r'^$', views.index, name='index'),
+    url(r'^review/reviews$', views.review_list, name='review_list'),
+    url(r'^book/books$', views.book_list, name='book_list'),
+
     url(r'^review/(?P<review_id>\d+)/$', views.review_detail, name='review_detail'),
     url(r'^book/(?P<book_id>\d+)/$', views.book_detail, name='book_detail'),
 

@@ -12,6 +12,18 @@ from django.http import HttpResponse
 from django.template.defaulttags import register
 
 
+def index(request):
+    books = Book.objects.filter(adding_date__lte=timezone.now()).order_by('-adding_date')
+    books=books[0:min(len(books),3)]
+    reviews = Review.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
+    reviews=reviews[0:min(len(reviews),3)]
+
+    dict_review_rating_to_text(reviews)
+    return render(request,
+                  'readings/index.html',
+                  {'reviews': reviews,
+                   'books': books})
+
 def dict_review_rating_to_text(reviews=[]):
     """ this function takes the list of reviews as input and return the text of the rating of these reviews"""
     text_rating={1: 'did\'nt like it so much',
@@ -29,6 +41,17 @@ def review_list(request):
     return render(request,
                   'readings/review_list.html',
                   {'reviews': reviews})
+
+def book_list(request):
+    # import pdb;
+    # pdb.set_trace()
+    books = Book.objects.filter(adding_date__lte=timezone.now()).order_by('-adding_date')
+    # dict_review_rating_to_text(books)
+    return render(request,
+                  'readings/book_list.html',
+                  {'books': books})
+
+
 
 
 def review_detail(request, review_id):
@@ -66,8 +89,14 @@ def book_new(request):
     if request.method == "POST":
         form = BookForm(request.POST)
         if form.is_valid():
-            book = form.save()
-            return redirect('readings:book_detail',book_id=book.pk)
+            form.save(commit=False)
+            book = form.save(commit=False)
+            book.added_by = request.user
+            book.adding_date = timezone.now()
+            book.save()
+            # book = form.save()
+            id = book.pk
+            return redirect('readings:book_detail',book_id=id)
     else:
         form = BookForm()
     return render(request, 'readings/book_edit.html', {'form': form})

@@ -31,9 +31,12 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-              <li><a href="{% url 'readings:review_list' %}"><span class="glyphicon glyphicon-home"></span> Readings </a></li>
-              <li><a href="{% url 'readings:review_new' %}"> <span class="glyphicon glyphicon-pencil"></span> Add a New Reading  </a></li>
-              <li><a href="{% url 'readings:book_new' %}" >  <span class="glyphicon glyphicon-book"></span> Add a New Book</a></li>
+              <li><a href="{% url 'readings:index' %}"><span class="glyphicon glyphicon-home"></span> Home </a></li>
+
+              <li><a href="{% url 'readings:review_list' %}"><span class="glyphicon glyphicon-text-background"></span> Readings </a></li>
+              <li><a href="{% url 'readings:book_list' %}"><span class="glyphicon glyphicon-book"></span> Books </a></li>
+              <li><a href="{% url 'readings:review_new' %}"> <span class="glyphicon glyphicon-plus"></span> Add a New Reading  </a></li>
+              <li><a href="{% url 'readings:book_new' %}" >  <span class="glyphicon glyphicon-plus"></span> Add a New Book</a></li>
               <!--<li><a href="{% url 'readings:book_new' %}" >  <span class="glyphicon glyphicon-men"></span> Add a New Artist</a></li>-->
 
             <!--<li class="dropdown">-->
@@ -90,6 +93,8 @@
     </div>
 
 
+<hr>
+<br>
 </body>
 </html>
 

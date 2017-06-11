@@ -2,7 +2,8 @@
 
 
 {% block title%}
-    <h1> Latest readings    </h1>
+    <h1> Readings list   </h1>
+    <hr>
 {% endblock %}
 
 
@@ -16,8 +17,9 @@
             <div class="review">
                 <h3><a href="{% url 'readings:review_detail' review.id %}">{{ review.book.name }}</a></h3>
                 <h4>wrriten by: <a href="{% url 'readings:review_detail' review.id %}">{{ review.book.author }}</a></h4>
-                <h4>illustrated by: <a href="{% url 'readings:review_detail' review.id %}">{{ review.book.illustrator }}</a></h4>
-
+                {% if  review.book.illustrator %}
+                    <h4>illustrated by: <a href="{% url 'readings:review_detail' review.id %}">{{ review.book.illustrator }}</a></h4>
+                {% endif %}
                 <h4>read by: <b> {{ review.reviewed_by.username }} </b> who {{ review.text_rating }} </h4>
 
                 <p>{{ review.body|linebreaksbr|truncatechars:300 }}</p>

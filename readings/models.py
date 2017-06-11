@@ -37,35 +37,18 @@ class Reader(models.Model):
             Reader.objects.create(user=instance)
         instance.reader.save()
 
-# class Reader(models.Model):
-#     GENDER_CHOICES=(
-#         ('M','male'),
-#         ('F','female'),
-#         ('O','not/specified')
-#     )
-#
-#     YEAR_CHOICES = []
-#     for r in range(1910, (datetime.datetime.now().year + 1)):
-#         YEAR_CHOICES.append((r, r))
-#
-#     username = models.CharField(max_length=100)
-#     email = models.EmailField(max_length=100)
-#     year_of_birth = models.IntegerField(choices=YEAR_CHOICES, default=datetime.datetime.now().year-10)
-#     gender = models.CharField(max_length=1,choices=GENDER_CHOICES)
-#     password = models.CharField(max_length=50)
-#     join_date = models.DateTimeField('date joined')
-#
-#     def __unicode__(self):
-#         return self.username
 
 class Book(models.Model):
+    added_by = models.ForeignKey(User, null=True, blank=True)
+
     name = models.CharField(max_length=200)
     author = models.CharField(max_length=50)
     illustrator = models.CharField(max_length=50,blank=True)
     publisher = models.CharField(max_length=50,blank=True)
-    year = models.IntegerField(default=datetime.datetime.now().year,blank=True)
+    year = models.IntegerField(default=0,blank=True)
     wiki_page = models.CharField(max_length=200, blank=True,  validators=[URLValidator()])
-    number_of_pages = models.IntegerField(blank=True)
+    number_of_pages = models.IntegerField(blank=True, default=0)
+    adding_date = models.DateTimeField(auto_now_add=True)
 
     def average_rating(self):
         all_ratings = map(lambda x: x.rating, self.review_set.all())
@@ -73,6 +56,7 @@ class Book(models.Model):
 
     def __unicode__(self):
         return self.name
+    objects = models.Manager() # the default manager (used for queries for example)
 
 
 class Review(models.Model):

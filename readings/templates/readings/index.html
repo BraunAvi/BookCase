@@ -1,0 +1,73 @@
+{% extends 'readings/base.html' %}
+
+
+{% block title%}
+    <h1 style="text-align: left; float: left; vertical-align: bottom; ">Log Book </h1>
+    <div class="title-cont">
+        <h2> (Remembering the books you loved; or didn't) </h2>
+    </div>
+    <br style="clear: both;" />
+{% endblock %}
+
+
+{% block sub_title %}
+    <!--<h2 class="sub-title">latest reviews</h2>-->
+{% endblock %}
+
+
+
+
+
+{% block content %}
+
+<div class="sub-header">
+        <hr />
+        <h2 class="sub-title">Latest reviews</h2>
+        <hr />
+</div>
+        {% for review in reviews %}
+            <div class="review">
+                <h3><a href="{% url 'readings:review_detail' review.id %}">{{ review.book.name }}</a></h3>
+                <h4>wrriten by: <a href="{% url 'readings:review_detail' review.id %}">{{ review.book.author }}</a></h4>
+                {% if  review.book.illustrator %}
+                    <h4>illustrated by: <a href="{% url 'readings:review_detail' review.id %}">{{ review.book.illustrator }}</a></h4>
+                {% endif %}
+                <h4>read by: <b> {{ review.reviewed_by.username }} </b> who {{ review.text_rating }} </h4>
+
+                <p>{{ review.body|linebreaksbr|truncatechars:300 }}</p>
+                <div class="date">
+                    <p>published on: {{review.published_date }}</p>
+                </div>
+            </div>
+        {% endfor %}
+
+
+    <div class="sub-header">
+        <hr />
+        <h2 class="sub-title">Latest Books</h2>
+        <hr />
+
+    </div>
+
+
+        {% for book in books %}
+            <div class="review">
+                <h3><a href="{% url 'readings:book_detail' book.id %}">{{ book.name }}</a></h3>
+                <h4>wrriten by: <a href="{% url 'readings:book_detail' book.id %}">{{ book.author }}</a></h4>
+                {% if  book.illustrator %}
+                <h4>illustrated by: <a href="{% url 'readings:book_detail' book.id %}">{{ book.illustrator }}</a></h4>
+                {% endif %}
+
+                {% if  book.publisher %}
+                <h4>published by: <a href="{% url 'readings:book_detail' book.id %}">{{ book.publisher }}</a></h4>
+                {% endif %}
+
+                <h4>added by: <b> {{ book.added_by.username }} </b>  </h4>
+
+                <!--<p>{{ review.body|linebreaksbr|truncatechars:300 }}</p>-->
+                <div class="date">
+                    <p>added on: {{book.adding_date}}</p>
+                </div>
+            </div>
+        {% endfor %}
+    {% endblock %}

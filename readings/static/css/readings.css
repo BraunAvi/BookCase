@@ -1,14 +1,15 @@
+
+h1, h2, h3, h4 {
+    font-family: 'Lobster', cursive;
+    height: 30px;
+}
+
 h1   {
     color: #000999;
     padding-left:30px
 }
 
-
-h1, h2, h3, h4 {
-    font-family: 'Lobster', cursive;
-}
 .page-header {  
-
     background-color: #000000;
     margin-top: 20;
     padding: 20px 20px 20px 20px;
@@ -22,23 +23,38 @@ h1, h2, h3, h4 {
 }
 
 .sub-header h2 {
-    color: black;
-    font-size: 25 pt;
+    color: darkseagreen;
+    font-size: 26 pt;
     text-decoration: none;
-    font-family: 'Libre Baskerville', cursive;
+/*    font-family: 'Libre Baskerville', cursive;*/
+    font-family: 'Lobster', cursive;
+    padding-left:0px;
+
 
 }
 
 .sub-title {  
     background-color: #ffffff;
     font-family: "Times New Roman", Times, serif;
-    font-size: 18pt;
+/*    font-size: 18pt;*/
     padding: 0px 0px 0px 20px;
     margin-left: 0px;
-    padding-left:30px
+    padding-left:0px
 }
 
+.title-cont h2 {
+    font-size   : 18pt;
+    margin-left: 20px;
+/*    text-align: center;*/
+    display: inline;
+    float: left;
+    padding: 10px 0px 0px 0px;
 
+
+/*    vertical-align: bottom;*/
+    
+        
+}
 .content {
     padding: 0px 0px 0px 0px;
     padding-left: 30px;
@@ -147,11 +163,4 @@ li.my_top_navbar {
 */
 
 
-#sub_title h2, #sub_title h3, #sub_title a
- {
-    display: inline;
-    vertical-align: top;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 18px;
-    line-height: 28px;
-}
+
