@@ -11,16 +11,20 @@ h1   {
 
 .page-header {  
     background-color: #000000;
-    margin-top: 20;
+    margin-top: -20;
     padding: 20px 20px 20px 20px;
-    padding-left:30px
+    padding-left:30px;
+
 }
 
 .page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active .page-header a {
-    color: aqua;
-    font-size: 36pt;
+    font-size: 30pt;
+    margin-top: 0;
     text-decoration: none;
+    background-color: white;
+    height: 30px;
 }
+
 
 .sub-header h2 {
     color: darkseagreen;
@@ -47,7 +51,7 @@ h1   {
     margin-left: 20px;
 /*    text-align: center;*/
     display: inline;
-    float: left;
+/*    float: left;*/
     padding: 10px 0px 0px 0px;
 
 
@@ -79,7 +83,7 @@ h1   {
     color: #ffffff;
     float: right;
     font-size: 26pt;
-    margin-right: 30px;
+    margin-right: 10px;
 
 }
 
@@ -138,29 +142,7 @@ img {
 }
 
 
-li.my_top_navbar b{
-    font-size: 23px;
-    color: cornflowerblue;
-    text-align: center  ;
-/*    padding-top: 15px;*/
-/*    line-height: 10px;*/
 
-}
-
-
-
-/*
-
-li.my_top_navbar {
-    text-align: bottom  ;
-    color: red;
-    padding-top: 10px;
-    padding-bottom: 15px;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 20px;
-    line-height: 20px;
-}
-*/
 
 
 
