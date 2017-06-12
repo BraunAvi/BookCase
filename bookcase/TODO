@@ -10,23 +10,31 @@ Done:
         GIT
         Online!
 
+    Bootsrap:
+        Done:
+            index
+            base.html
+        lists
+        book page
+        review page
+Views:
+    Done:
+        books_list
+    book_details
+
 
 Create user registration form
 
 Adding covers images
-    manual
+    Done:
+        completely manual
+    add to POSTGRES
     From selection
-
 
 NavBar:
     Done:
         Home| Readings| Books| new reading| new book| login/logout
     search (readings, users, books, authors)  | add artist
-
-Views:
-    Done:
-        books_list
-    book_details
 
 
 Permissions:
