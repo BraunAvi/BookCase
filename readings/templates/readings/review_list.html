@@ -1,34 +1,58 @@
 {% extends 'readings/base.html' %}
-
+{% load staticfiles %}
 
 {% block title%}
     <h1> Readings list   </h1>
     <hr>
 {% endblock %}
 
-
 {% block sub_title %}
     <!--<h2 class="sub-title">Latest readings </h2>-->
 {% endblock %}
 
-{% if reviews %}
-    {% block content %}
-        {% for review in reviews %}
-            <div class="review">
-                <h3><a href="{% url 'readings:review_detail' review.id %}">{{ review.book.name }}</a></h3>
-                <h4>wrriten by: <a href="{% url 'readings:review_detail' review.id %}">{{ review.book.author }}</a></h4>
-                {% if  review.book.illustrator %}
-                    <h4>illustrated by: <a href="{% url 'readings:review_detail' review.id %}">{{ review.book.illustrator }}</a></h4>
-                {% endif %}
-                <h4>read by: <b> {{ review.reviewed_by.username }} </b> who {{ review.text_rating }} </h4>
 
-                <p>{{ review.body|linebreaksbr|truncatechars:300 }}</p>
-                <div class="date">
-                    <p>published on: {{review.published_date }}</p>
+{% block content %}
+<div class="container">
+  <div class="row">
+      <div class="col-sm-12">
+        {% for review in reviews %}
+              <div class="well">
+                  <div class="row">
+                <div class="col-sm-9">
+                    <div class="review">
+                        <h3><a href="{% url 'readings:book_detail' review.book.id %}">{{ review.book.name }}</a></h3>
+                        <h4>Read by: <b> {{ review.reviewed_by.username }} </b> who {{ review.text_rating }} </h4>
+                        <h4>Wrriten by: <a href="{% url 'readings:review_detail' review.id %}">{{ review.book.author }}</a></h4>
+                        {% if  review.book.illustrator %}
+                            <h4>Illustrated by: <a href="{% url 'readings:review_detail' review.id %}">{{ review.book.illustrator }}</a></h4>
+                        {% endif %}
+                        <div class="date">
+                            <p>published on: {{review.published_date }}</p>
+                        </div>
+
+                        <p style = "color:blue"> <a href="{% url 'readings:review_detail' review.id %}">
+                                  {{ review.body|linebreaksbr|truncatechars:300 }}</a></p>
+                    </div>
                 </div>
+                <div class="col-sm-3">
+                    <div class="img-rounded" >
+                        <img class="img-responsive" src="{% static 'images/cover_The_Secret_Garden_1911.jpg' %}" alt="cover" style="width:150%"  />
+                    </div>
+                </div>
+            <!--width="300" height="100"-->
             </div>
+            <!--<div class="row">-->
+                <!--<div class="col-sm-12">-->
+                  <!--<p style = "color:blue"> <a href="{% url 'readings:review_detail' review.id %}">-->
+                                  <!--{{ review.body|linebreaksbr|truncatechars:300 }}</a></p>-->
+                  <!--<hr>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
         {% endfor %}
-    {% endblock %}
-{% else %}
-    <p>No reviews are available.</p>
-{% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+

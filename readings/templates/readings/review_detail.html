@@ -1,38 +1,68 @@
 {% extends 'readings/base.html' %}
-
+{% load staticfiles %}
 
 {% block title%}
     <h1>
-        <!--<a href="">{{ review.book.name }}</a>-->
-        {{ review.book.name }}
-            <a class="btn btn-default" href="{% url 'readings:review_edit' pk=review.pk %}">
+        <a href="{% url 'readings:book_detail' review.book.id %}">{{ review.book.name }}</a>
+        <a href="{% url 'readings:book_detail' review.book.id %}">   <small>{{ review.book.author}}</small></a>
+        {% if review.book.number_of_pages %}
+        <small>,  {{review.book.number_of_pages }} pages</small>
+        {% endif %}
+        <a class="btn btn-default" href="{% url 'readings:review_edit' pk=review.pk %}">
         <span class="glyphicon glyphicon-pencil"></span></a>
-
     </h1>
+    <hr>
+
 {% endblock %}
 
 
 {% block sub_title %}
-<div id="sub_title" >
-    <h2 class="sub-title">read by: <i>{{review.reviewed_by.username}}</i> who </h2>
-    <h3>  {{ review.text_rating|linebreaksbr }} </h3>
-</div>
+<!--<div id="sub_title" >-->
+    <!--<h2 class="sub-title">read by: <i>{{review.reviewed_by.username}}</i> who </h2>-->
+    <!--<h3>  {{ review.text_rating|linebreaksbr }} </h3>-->
+<!--</div>-->
 {% endblock %}
 
 {% block content %}
-    <div class="review">
-        {% if review.published_date %}
-            <div class="date">
-                Submitted on {{ review.published_date }}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-10">
+        <div class="well">
+            <div class="row">
+                <div class="col-sm-9">
+                    <div class="review">
+                        <div>
+                            <h2 style="display: inline">read by: <i>{{review.reviewed_by.username}}</i>  </h2>
+                            <h3 style="display: inline ; color: darkslategrey">who  {{ review.text_rating }} </h3>
+                        </div>
+                        {% if review.published_date %}
+                        <br>
+
+                        <div class="date">
+                            Submitted on {{ review.published_date }}
+                        </div>
+                        <div class="date">
+                            Last updated on {{ review.updated_date }}
+                        </div>
+                        {% endif %}
+                        <hr>
+                        <p style="color: midnightblue">{{ review.body|linebreaksbr }}</p>
+
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="img-rounded" >
+                        <img class="img-responsive" src="{% static 'images/cover_The_Secret_Garden_1911.jpg' %}" alt="cover" style="width:150%"  />
+                    </div>
+                </div>
             </div>
-            <div class="date">
-                Last updated on {{ review.updated_date }}
-            </div>
-        {% endif %}
+        </div>
+    </div>
+  </div>
+
         <!--<br>-->
         <p>-------------------------</p>
         <!--<h1>{{ review.book.name }}</h1>-->
-        <p>{{ review.body|linebreaksbr }}</p>
 
         <br>
 

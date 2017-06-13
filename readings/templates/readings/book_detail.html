@@ -1,27 +1,107 @@
 {% extends 'readings/base.html' %}
-
+{% load staticfiles %}
 
 {% block title%}
     <h1>
-        <a href="">{{ book.name }}</a>
+        {{ book.name }}
+        <a class="btn btn-default" href="{% url 'readings:book_edit' pk=book.pk %}">
+        <span class="glyphicon glyphicon-pencil"></span></a>
     </h1>
+    <hr>
 {% endblock %}
 
 {% block sub_title %}
-    <h2 class="sub-title">written by: {{book.author}} </h2>
-    <h2 class="sub-title">illustrated by: {{book.illustrator}} </h2>
+    <!--<h2 class="sub-title">latest reviews</h2>-->
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-7">
+        <div class="well">
+            <div class="row">
+                <div class="col-sm-5">
+                    <div class="review">
+                    <!--<h3><a href="{% url 'readings:book_detail' book.id %}">{{ book.name }}</a></h3>-->
+                    <h4>Wrriten by: <a href="{% url 'readings:book_detail' book.id %}">{{ book.author }}</a></h4>
+                    {% if  book.illustrator %}
+                        <h4>Illustrated by: <a href="{% url 'readings:book_detail' book.id %}">{{ book.illustrator }}</a></h4>
+                    {% endif %}
+                    {% if  book.publisher %}
+                        <h4>Published by: <a href="{% url 'readings:book_detail' book.id %}">{{ book.publisher }}</a></h4>
+                    {% endif %}
+                    {% ifnotequal  book.year 1  %}
+                        <h4>first edition was publish in {{ book.year }} </h4>
+                    {% endifnotequal %}
+
+                    {% if  book.number_of_pages %}
+                        <h4>{{ book.number_of_pages }} pages</h4>
+                    {% endif %}
+
+                    {% if  book.wiki_page %}
+                    <h4><a href="{{ book.wiki_page }}"> {{book.name}} @ wikipedia.org</a>  </h4>
+                    {% endif %}
+                        <h4>Added by: <b> {{ book.added_by.username }} </b>  </h4>
+                        <div class="date">
+                            <p>added on: {{book.adding_date|date:"SHORT_DATE_FORMAT"}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-7">
+                    <div class="img-rounded" >
+                        <img class="img-responsive" src="{% static 'images/cover_The_Secret_Garden_1911.jpg' %}" alt="cover" style="width:150%"  />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="col-sm-5">
+        <div class="sub-header">
+            <h2 class="sub-title">Read by</h2>
+            <hr />
+        </div>
+          {% for review in reviews %}
+          <div class="well">
+              <div class="row">
+                  <div class="col-sm-12">
+                      <div class="review">
+                    <!--<h3><a href="{% url 'readings:review_detail' review.id %}">{{ review.book.name }}</a></h3>-->
+                          <h2>Read by: <b> {{ review.reviewed_by.username }} </b> <h3> who {{ review.text_rating }}</h3> </h2>
+                          <div class="date">
+                            <p>published on: {{review.published_date }}</p>
+                          </div>
+                          <p style = "color:blue"> <a href="{% url 'readings:review_detail' review.id %}">
+                              {{ review.body|linebreaksbr|truncatechars:300 }}</a></p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      {% endfor %}
+    </div>
+
+
+
+
+  </div>
+</div>
 
 {% endblock %}
 
 
-<!--{% block content %}-->
-    <!--<div class="review">-->
-        <!--{% if book.published_date %}-->
-            <!--<div class="date">-->
-                <!--{{ book.published_date }}-->
-            <!--</div>-->
-        <!--{% endif %}-->
-        <!--<h1>{{ book.name }}</h1>-->
-        <!--<p>{{ review.body|linebreaksbr }}</p>-->
-    <!--</div>-->
-<!--{% endblock %}-->
+
+    <!--<h1>-->
+        <!--<a href="">{{ book.name }}</a>-->
+    <!--</h1>-->
+
+    <!--<h2 class="sub-title">Written by: {{book.author}} </h2>-->
+    <!--{% if  book.illustrator %}-->
+        <!--<h2 class="sub-title">Illustrated by: {{book.illustrator}} </h2>-->
+    <!--{% endif %}-->
+

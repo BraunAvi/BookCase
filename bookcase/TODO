@@ -20,20 +20,24 @@ Done:
 Views:
     Done:
         books_list
-    book_details
-
+    book_details:
+        Done:
+            add list of 'reviewed by; start with DB query in view and send the list of reviews to the html'
+            add links to full reviews (if applicable)
+        add average score
 
 Create user registration form
 
 Adding covers images
     Done:
-        completely manual
+        100% manual
     add to POSTGRES
     From selection
 
 NavBar:
     Done:
         Home| Readings| Books| new reading| new book| login/logout
+    Back\FWD buttons
     search (readings, users, books, authors)  | add artist
 
 
@@ -53,6 +57,7 @@ Permissions:
 
 
 Links to filtered lists:
+    Done:
+        By name of book
     By user
     Bu author
-    By name of book

@@ -63,7 +63,13 @@ def review_detail(request, review_id):
 
 def book_detail(request, book_id):
     book = get_object_or_404(Book, id=book_id)
-    return render(request, 'readings/book_detail.html', {'book': book})
+    reviews = Review.objects.filter(book=book_id).order_by('-published_date')
+    dict_review_rating_to_text(reviews)
+
+    # reviews = Review(review.book=book.id, tagline='All the latest Beatles news.')
+    return render(request, 'readings/book_detail.html',
+                  {'book': book,
+                   'reviews': reviews})
 
 def review_new(request):
     if not request.user.is_authenticated():
@@ -118,6 +124,24 @@ def review_edit(request, pk):
     else:
         form = ReviewForm(instance=review)
     return render(request, 'readings/review_edit.html', {'form': form})
+
+def book_edit(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+
+    # if review.reviewed_by!=request.user:
+    #     return redirect('readings:auth_error_message', error_type=0)
+
+    if request.method == "POST":
+        form = BookForm(request.POST, instance=book)
+        if form.is_valid():
+            book = form.save(commit=False)
+            book.added_by = request.user
+            book.updated_date = timezone.now()
+            book.save()
+            return redirect('readings:book_detail', book_id=book.pk)
+    else:
+        form = BookForm(instance=book)
+    return render(request, 'readings/book_edit.html', {'form': form})
 
 
 def log_out(request):

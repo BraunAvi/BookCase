@@ -2,7 +2,7 @@
 
 
 {% block content %}
-    <h1>New Reading</h1>
+    <h1>Update Reading</h1>
     <form method="POST" class="post-form">{% csrf_token %}
         {{ form.as_p }}
         {% if user.is_authenticated %}
