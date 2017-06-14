@@ -21,7 +21,7 @@
     <div class="col-sm-7">
         <div class="well">
             <div class="row">
-                <div class="col-sm-5">
+                <div class="col-sm-7">
                     <div class="review">
                     <!--<h3><a href="{% url 'readings:book_detail' book.id %}">{{ book.name }}</a></h3>-->
                     <h4>Wrriten by: <a href="{% url 'readings:book_detail' book.id %}">{{ book.author }}</a></h4>
@@ -48,9 +48,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-7">
+                <div class="col-sm-5">
                     <div class="img-rounded" >
-                        <img class="img-responsive" src="{% static 'images/cover_The_Secret_Garden_1911.jpg' %}" alt="cover" style="width:150%"  />
+                        <img class="img-responsive" src="{{ MEDIA_URL }}{{book.cover_image}}" alt="cover" />
                     </div>
                 </div>
             </div>

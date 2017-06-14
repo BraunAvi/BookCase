@@ -36,7 +36,7 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="img-rounded" >
-                        <img class="img-responsive" src="{% static 'images/cover_The_Secret_Garden_1911.jpg' %}" alt="cover" style="width:150%"  />
+                        <img class="img-responsive" src="{{ MEDIA_URL }}{{review.book.cover_image}}" alt="cover" />
                     </div>
                 </div>
             <!--width="300" height="100"-->

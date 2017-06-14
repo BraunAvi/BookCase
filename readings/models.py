@@ -40,7 +40,6 @@ class Reader(models.Model):
 
 class Book(models.Model):
     added_by = models.ForeignKey(User, null=True, blank=True)
-
     name = models.CharField(max_length=200)
     author = models.CharField(max_length=50)
     illustrator = models.CharField(max_length=50,blank=True)
@@ -49,6 +48,8 @@ class Book(models.Model):
     wiki_page = models.CharField(max_length=200, blank=True,  validators=[URLValidator()])
     number_of_pages = models.IntegerField(blank=True, default=0)
     adding_date = models.DateTimeField(auto_now_add=True)
+    cover_image = models.ImageField(upload_to='cover_images',default='cover_images/cover.jpg')
+
 
     def average_rating(self):
         all_ratings = map(lambda x: x.rating, self.review_set.all())
@@ -85,3 +86,11 @@ class Review(models.Model):
         return self.book.name + ' by '+self.reviewed_by.username
 
     objects = models.Manager() # the default manager (used for queries for example)
+
+
+
+class Document(models.Model):
+    description = models.CharField(max_length=255, blank=True)
+    # document = models.FileField(upload_to='documents/')
+    cover_image = models.ImageField(upload_to='documents/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)

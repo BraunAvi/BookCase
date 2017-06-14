@@ -15,7 +15,7 @@ class ReviewAdmin(admin.ModelAdmin):
 
 class BookAdmin(admin.ModelAdmin):
     model = Book
-    list_display = ('name', 'author', 'year', 'number_of_pages','wiki_page','added_by','adding_date')
+    list_display = ('name', 'author', 'year', 'number_of_pages','wiki_page','added_by','adding_date', 'cover_image')
     list_filter = ['name', 'author','year']
     search_fields = ['name','author']
 
