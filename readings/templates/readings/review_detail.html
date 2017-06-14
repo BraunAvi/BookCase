@@ -2,16 +2,17 @@
 {% load staticfiles %}
 
 {% block title%}
-    <h1>
-        <a href="{% url 'readings:book_detail' review.book.id %}">{{ review.book.name }}</a>
-        <a href="{% url 'readings:book_detail' review.book.id %}">   <small>{{ review.book.author}}</small></a>
-        {% if review.book.number_of_pages %}
+<h1>
+    <a href="{% url 'readings:book_detail' review.book.id %}">{{ review.book.name }}</a>
+</h1>
+<h3><a href="{% url 'readings:book_detail' review.book.id %}">  {{ review.book.author}}</a>
+    {% if review.book.number_of_pages %}
         <small>,  {{review.book.number_of_pages }} pages</small>
-        {% endif %}
-        <a class="btn btn-default" href="{% url 'readings:review_edit' pk=review.pk %}">
-        <span class="glyphicon glyphicon-pencil"></span></a>
-    </h1>
-    <hr>
+    {% endif %}
+    <a class="btn btn-default" href="{% url 'readings:review_edit' pk=review.pk %}">
+    <span class="glyphicon glyphicon-pencil"></span></a>
+</h3>
+<hr>
 
 {% endblock %}
 
