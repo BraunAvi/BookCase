@@ -4,7 +4,6 @@
     <list default="true" id="384e54fe-351c-4043-b000-3576368fe451" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/readings/static/css/readings.css" afterPath="$PROJECT_DIR$/readings/static/css/readings.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/readings/templates/readings/review_detail.html" afterPath="$PROJECT_DIR$/readings/templates/readings/review_detail.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -563,7 +562,14 @@
       <option name="project" value="LOCAL" />
       <updated>1497398185933</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="fixing authore position in review detalis template">
+      <created>1497399714823</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1497399714823</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TodoView">
@@ -628,7 +634,8 @@
     <MESSAGE value="BootSrap design&#10;adding static images&#10;" />
     <MESSAGE value="update TODO &#10;" />
     <MESSAGE value="Build templates:&#10;book list, review list, book details, review details&#10;Updating views to filter readings by name of book" />
-    <option name="LAST_COMMIT_MESSAGE" value="Build templates:&#10;book list, review list, book details, review details&#10;Updating views to filter readings by name of book" />
+    <MESSAGE value="fixing authore position in review detalis template" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixing authore position in review detalis template" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
