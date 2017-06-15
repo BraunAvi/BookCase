@@ -1,0 +1,8 @@
+ssh avi@139.162.251.9
+cd bookcase/
+python manage.py dumpdata readings auth >db.json
+
+local:
+scp ssh avi@139.162.251.9:/home/avi/bookcase/db.json BookCase/bookcase/
+python manage.py loaddata db.json
+
