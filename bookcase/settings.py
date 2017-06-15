@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'km5+l+l%b$8ooj42kt26&=fbff1$2%fab+m1re$giy&psby$m6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['www.abraun.me','.abraun.me','abraun.me','139.162.251.9','']
 PREPEND_WWW=True # adds WWW prefix to all url
@@ -65,6 +65,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -138,3 +139,11 @@ STATIC_URL = '/static/'
 # STATIC_ROOT = os.path.join(BASE_DIR, 'readings/static')
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+
+MEDIA_URL = '/media/'
+
+#MEDIA_ROOT = '/home/avi/bookcase/media/'  
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+
