@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'km5+l+l%b$8ooj42kt26&=fbff1$2%fab+m1re$giy&psby$m6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['www.abraun.me','.abraun.me','abraun.me','139.162.251.9','']
 PREPEND_WWW=True # adds WWW prefix to all url
