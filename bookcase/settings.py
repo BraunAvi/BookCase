@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+from django.conf import settings
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,16 +21,23 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'km5+l+l%b$8ooj42kt26&=fbff1$2%fab+m1re$giy&psby$m6'
+#SECRET_KEY = 'km5+l+l%b$8ooj42kt26&=fbff1$2%fab+m1re$giy&psby$m6'
+
+with open('/etc/secret_key.txt') as f:
+    SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['www.abraun.me','.abraun.me','abraun.me','139.162.251.9','']
+
+if settings.DEBUG:
+    ALLOWED_HOSTS = []
+else: 
+    ALLOWED_HOSTS = ['www.abraun.me','.abraun.me','abraun.me','139.162.251.9']
+
 PREPEND_WWW=True # adds WWW prefix to all url
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -78,25 +86,30 @@ WSGI_APPLICATION = 'bookcase.wsgi.application'
 LOGIN_REDIRECT_URL = 'readings:review_list'
 
 # Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-#
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
 # connect using:   psql -p5430 bookcase_db
-DATABASES = {
+if settings.DEBUG:
+    DATABASES = {
     'default': {
         # 'ENGINE': 'django.db.backends.postgresql',
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'bookcase_db',
-        'USER': 'avi',
+        'USER': 'avibraun',
         'PASSWORD': 'avibraun',
-        'HOST': 'localhost',
-        'PORT': '',
+        'HOST': '',
+        'PORT': '5430',
+    }
+}
+else:
+
+    DATABASES = {
+        'default': {
+        # 'ENGINE': 'django.db.backends.postgresql',
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'bookcase_db',
+            'USER': 'avi',
+            'PASSWORD': 'avibraun',
+            'HOST': 'localhost',
+            'PORT': '',
     }
 }
 
@@ -133,19 +146,26 @@ USE_L10N = True
 
 USE_TZ = True
 
+# deployment securoty settings:
+# https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
+if not settings.DEBUG:
+    SECURE_CONTENT_TYPE_NOSNIFF=True 
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_SSL_REDIRECT = False
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    X_FRAME_OPTIONS = 'DENY'
+
+
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'readings/static')
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
-
 MEDIA_URL = '/media/'
-
-#MEDIA_ROOT = '/home/avi/bookcase/media/'  
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 
