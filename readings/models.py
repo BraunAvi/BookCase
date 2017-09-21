@@ -71,10 +71,8 @@ class Review(models.Model):
     reviewed_by = models.ForeignKey(User)
     published_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
-
-
-    body = models.TextField()
-    quote = models.CharField(max_length=200,blank=True)
+    body = models.TextField(blank=True)
+    quote = models.CharField(max_length=200, blank=True)
     rating = models.IntegerField(choices=RATING_CHOICES)
 
     def publish(self):

@@ -1,8 +1,32 @@
 ssh avi@139.162.251.9
 cd bookcase/
 python manage.py dumpdata readings auth >db.json
+or: 
+python manage.py dumpdata readings auth --natural-foreign --exclude auth.permission --exclude contenttypes --indent 4 > data.json
+
+
+
+./manage.py dumpdata --exclude auth.permission --exclude contenttypes > db.json
 
 local:
-scp ssh avi@139.162.251.9:/home/avi/bookcase/db.json BookCase/bookcase/
+scp avi@139.162.251.9:/home/avi/bookcase/db.json BookCase/bookcase/
+
+edit son file to remove the readings.reader models (to avoid duplicate terror)
+
+
+
+{
+    "model": "readings.reader",
+    "pk": 5,
+    "fields": {
+        "user": [
+            "Gabriela"
+        ],
+        "gender": "F",
+        "year_of_birth": 2008
+    }
+}
+
+
 python manage.py loaddata db.json
 

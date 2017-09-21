@@ -17,12 +17,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'km5+l+l%b$8ooj42kt26&=fbff1$2%fab+m1re$giy&psby$m6'
+with open('/etc/secret_key.txt') as f:
+    SECRET_KEY = f.read().strip()
 
+# SECRET_KEY = 'km5+l+l%b$8ooj42kt26&=fbff1$2%fab+m1re$giy&psby$m6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','127.0.0.1:8000']
+ALLOWED_HOSTS = ['127.0.0.1','127.0.0.1:8001']
 
 
 # Application definition
@@ -72,6 +74,14 @@ TEMPLATES = [
 WSGI_APPLICATION = 'bookcase.wsgi.application'
 
 LOGIN_REDIRECT_URL = 'readings:review_list'
+
+# deployment securoty settings:
+SECURE_CONTENT_TYPE_NOSNIFF=True
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_SSL_REDIRECT = False
+# SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+X_FRAME_OPTIONS = 'DENY'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
