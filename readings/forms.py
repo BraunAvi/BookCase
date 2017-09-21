@@ -1,6 +1,6 @@
 from django import forms
 from .models import Review, Book
-from .models import Document
+#from .models import Document
 
 
 class ReviewForm(forms.ModelForm):

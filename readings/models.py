@@ -85,8 +85,6 @@ class Review(models.Model):
 
     objects = models.Manager() # the default manager (used for queries for example)
 
-
-
 class Document(models.Model):
     description = models.CharField(max_length=255, blank=True)
     # document = models.FileField(upload_to='documents/')
